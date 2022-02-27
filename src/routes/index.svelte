@@ -4,6 +4,7 @@
 	import Todo from '../lib/Todo.svelte';
 
 	let todos = [];
+	let newTask = '';
 	onMount(async () => {
 		await getAllTodos();
 		let { data, error } = await supabase.from('todos').select('*');
@@ -12,14 +13,24 @@
 	const getAllTodos = async () => {
 		try {
 			let { data, err } = await supabase.from('todos').select('*');
-            todos = data
+			todos = data;
 		} catch {
 			console.log(err);
 		}
 	};
+	const addTask = async (task) => {
+        console.log('add task')
+		try {
+			const { data, error } = await supabase.from('todos')
+            .insert([{ task: newTask }]);
+			await getAllTodos();
+            newTask = ""
+		} catch {
+			console.log(error);
+		}
+	};
 
 	const updateTodo = async (todo) => {
-		console.log('updateTodo running....');
 		console.table(todo);
 		try {
 			const { data, error } = await supabase
@@ -28,24 +39,43 @@
 				.eq('id', todo.id);
 			await getAllTodos();
 		} catch {
-			console.log(err);
+			console.log(error);
 		}
 	};
 	const deleteTodo = async (todo) => {
-		console.log('deleteTodo intiated.......');
 		try {
-			const { data, error } = await supabase
-            .from('todos').
-            delete().eq('id', todo.id);
+			const { data, error } = await supabase.from('todos').delete().eq('id', todo.id);
 			await getAllTodos();
 		} catch {
 			console.log(err);
 		}
 	};
+    const handleKeyPress = (event) =>{
+        console.log(event)
+        if (event.key == 'Enter' && newTask !=""){
+            addTask()
+        }
+    }
 </script>
 
+<div class="addTodo">
+	<input type="text" bind:value={newTask} />
+	<button
+		on:click={() => {
+			addTask();
+		}}>Add task</button
+	>
+</div>
 {#each todos as todo}
 	<Todo {todo} {updateTodo} {deleteTodo} />
 {:else}
 	<p>no todos found</p>
 {/each}
+
+<svelte:window on:keypress={handleKeyPress}/>
+<style>
+	.addTodo {
+		display: flex;
+		margin-bottom: 0.5em;
+	}
+</style>
