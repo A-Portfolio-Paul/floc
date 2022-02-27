@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte';
 	import supabase from '$lib/db';
     import {user} from "../lib/stores"
+    import { goto } from "$app/navigation"
+
 
 	import Todo from '../lib/Todo.svelte';
 
@@ -58,7 +60,12 @@
             addTask()
         }
     }
-    
+    const logout = async  () =>{
+        let { error } = await supabase.auth.signOut()
+        $user = false
+        goto("/login")
+        }
+
 </script>
 <h4>Welcome {$user?.email ? $user.email: ""}!</h4>
 <div class="addTodo">
@@ -74,6 +81,9 @@
 {:else}
 	<p>no todos found</p>
 {/each}
+{#if $user.email }
+<p on:click={logout} class="switch">logout</p>
+{/if}
 
 <svelte:window on:keypress={handleKeyPress}/>
 <style>
@@ -81,4 +91,11 @@
 		display: flex;
 		margin-bottom: 0.5em;
 	}
+    :global(.switch){
+        color:skyblue;
+        cursor:pointer;
+    }
+    :global(.switch:hover){
+        text-decoration: underline;
+    }
 </style>
