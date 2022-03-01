@@ -34,6 +34,10 @@
 <button on:click={login}>Login</button>
 <p class="switch" on:click={()=>(isNewRegistration = true)}>Create New Account?</p>
 {/if}
+
+<h1 class="text-3xl text-red-500 font-bold underline">
+    Hello world!
+  </h1>
 <style>
 
 </style>
