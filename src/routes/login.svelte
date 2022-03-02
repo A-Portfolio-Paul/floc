@@ -2,13 +2,13 @@
 	import { goto } from '$app/navigation';
 	import supabase from '$lib/db';
 	import { user } from '../lib/stores';
+	import Signin from '../lib/auth/signin.svelte';
 
 	user.subscribe((value) => {
 		console.log('STORE:user:', value);
 	});
 
 	let email = '';
-	$: console.log('email', email);
 	let password = '';
 	let isNewRegistration = false;
 
@@ -30,7 +30,14 @@
 		$user = userDetails;
 		goto('/');
 	};
+	const sayHi = () => {
+		console.log('hi');
+	};
+	const forgotPassword = () => {
+		goto('/forgot');
+	};
 </script>
+
 {#if isNewRegistration}
 	<div
 		class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full flex flex-col  justify-center "
@@ -47,7 +54,11 @@
 				</div>
 				<div>
 					<label for="email" class="block mb-1 text-gray-600 font-semibold">Password</label>
-					<input bind:value={password} type="password"  class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+					<input
+						bind:value={password}
+						type="password"
+						class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+					/>
 				</div>
 			</div>
 			<div class="p-4 content-center flex flex-col items-center">
@@ -94,7 +105,11 @@
 				</div>
 				<div>
 					<label for="email" class="block mb-1 text-gray-600 font-semibold">Password</label>
-					<input bind:value={password} type="password"  class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+					<input
+						bind:value={password}
+						type="password"
+						class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+					/>
 				</div>
 			</div>
 			<div class="p-4 content-center flex flex-col items-center">
@@ -124,8 +139,11 @@
 				</p>
 			</div>
 		</div>
-		<p class="text-white hover:text-blue-200 hover:underline hover:cursor-pointer  text-xs mt-10">Forgot your password?</p>
-
+		<p
+			on:click={forgotPassword}
+			class="text-white hover:text-blue-200 hover:underline hover:cursor-pointer  text-xs mt-10"
+		>
+			Forgot your password?
+		</p>
 	</div>
 {/if}
-

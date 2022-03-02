@@ -1,5 +1,5 @@
 <script>
-	import { user } from '../lib/stores';
+	import { user } from '../../lib/stores';
     import supabase from '$lib/db';
     import { goto } from "$app/navigation"
 
@@ -38,7 +38,7 @@
 					<div
 						class="flex flex-row justify-center items-center text-center font-semibold text-gray-500"
 					>
-						<a class="px-6 py-1 flex flex-col md:flex-row md:items-center" href="#">
+						<a class="px-6 py-1 flex flex-col md:flex-row md:items-center" href="/">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="currentColor"
