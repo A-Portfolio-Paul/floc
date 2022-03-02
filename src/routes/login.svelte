@@ -4,9 +4,7 @@
 	import { user } from '../lib/stores';
 	import Signin from '../lib/auth/signin.svelte';
 
-	user.subscribe((value) => {
-		console.log('STORE:user:', value);
-	});
+
 
 	let email = '';
 	let password = '';

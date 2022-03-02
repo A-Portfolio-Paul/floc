@@ -1,14 +1,19 @@
 <script>
 	import { onMount } from 'svelte';
 	import supabase from '$lib/db';
-	import { user } from '../lib/stores';
+	import { user,session } from '../lib/stores';
+
 	import { goto } from '$app/navigation';
 
-	import { page } from '$app/stores'
+	import { page } from '$app/stores';
 
 	import Todo from '../lib/Todo.svelte';
 
-	console.log($page.url.searchParams)
+	user.subscribe((value) => {
+		console.log('STORE:user:', value);
+	});
+
+	console.log($page.url.searchParams);
 
 	let todos = [];
 	let newTask = '';
@@ -72,7 +77,12 @@
 
 	supabase.auth.onAuthStateChange((event, session) => {
 		if (event === 'PASSWORD_RECOVERY') {
-			console.log('RECOVERY HAS BE~EN REQUESTED');
+			console.log('RECOVERY HAS BEEN REQUESTED',event,session);
+			session.update((val) => {
+			val = { session };
+			return val;
+		});
+			goto('/passwordReset');
 		} else {
 			// save the user session
 		}

@@ -18,7 +18,7 @@
 <div class="bg-gray-100 ">
 	<nav class="bg-white px-6 relative shadow-md">
 		<div class="flex flex-row justify-between items-center py-2">
-			<h3 class="font-semibold text-3xl text-gray-500">Floc</h3>
+			<a  href="/"><h3 class="font-semibold text-3xl text-gray-500">Floc</h3></a>
 			<div class="group flex flex-col items-center">
 				<button class="p-2 rounded-lg md:hidden">
 					<svg
@@ -55,7 +55,7 @@
 							Home
 						</a>
 						{#if $user === false}
-							<a class="px-6 py-1 flex flex-col md:flex-row md:items-center" href="#">
+							<a class="px-6 py-1 flex flex-col md:flex-row md:items-center" href="/login">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="currentColor"
