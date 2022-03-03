@@ -15,7 +15,7 @@ The functionality of the App allows
 2. install https://github.com/supabase-community/svelte-supabase
 3. For setting up the superbase config for the users data / api and totda table see the WebJeda vidoes
 
-# Ackknowlegements
+# Acknowlegements
 THis project was based on the work from  WebJeda
  https://www.youtube.com/watch?v=DEGHlIRuIP8
 
