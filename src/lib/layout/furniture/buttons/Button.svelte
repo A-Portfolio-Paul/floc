@@ -3,10 +3,14 @@
     export let action
     export let data = 'default'
 
+    console.log('DATA:', data)
+
     const runFunction =()=>{
-        if(data = 'default'){
+        if(data == 'default'){
+            console.log('no prop')
             action()
         } else{
+            console.log('GOT prop')
             action(data)
         }
     }
