@@ -18,7 +18,7 @@
 <div class="bg-gray-100 ">
 	<nav class="bg-white px-6 relative shadow-md">
 		<div class="flex flex-row justify-between items-center py-2">
-			<a href="/"><h3 class="font-semibold text-3xl text-gray-500">Floc</h3></a>
+			<a href="/"><h3 class="font-semibold text-3xl text-gray-500">TODO</h3></a>
 			<div class="group flex flex-col items-center">
 				<button class="p-2 rounded-lg md:hidden">
 					<svg

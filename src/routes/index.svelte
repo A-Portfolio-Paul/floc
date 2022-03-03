@@ -3,10 +3,10 @@
 	import supabase from '$lib/db';
 	import { user, sess } from '../lib/stores';
 	import { goto } from '$app/navigation';
-	// import Todo from '../lib/Todo.svelte';
+	import TodoContainer from '../lib/todo/todoContainer.svelte';
+	import Home from '../lib/content/home.svelte'
 
 	onMount(async () => {
-		console.log('mounted.....');
 		getSession();
 	});
 
@@ -27,8 +27,8 @@
 </script>
 
 {#if $user.email}
-	<h2>Logged in</h2>
+	<TodoContainer/>
 
 {:else}
-	<h2>looged out</h2>
+	<Home/>
 {/if}
