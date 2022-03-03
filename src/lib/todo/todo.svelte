@@ -5,10 +5,6 @@
 	import { goto } from '$app/navigation';
 	import Todo from '../lib/Todo.svelte';
 
-	user.subscribe((value) => {
-		console.log('STORE:user:', value);
-	});
-
 	let todos = [];
 	let newTask = '';
 	onMount(async () => {
