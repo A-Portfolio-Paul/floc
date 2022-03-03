@@ -5,6 +5,9 @@
 	import { goto } from '$app/navigation';
 	import Todo from '../lib/Todo.svelte';
 
+	user.subscribe((value) => {
+		console.log('STORE:user:', value);
+	});
 
 	let todos = [];
 	let newTask = '';
@@ -71,10 +74,10 @@
 			supabase.auth.onAuthStateChange((event, session) => {
 		if (event === 'PASSWORD_RECOVERY') {
 			console.log('RECOVERY HAS BEEN REQUESTED', 'my_event:', event, 'my_session', session);
-			// sess.update((val) => {
-			// 	val = { session };
-			// 	return val;
-			// });
+			sess.update((val) => {
+				val = { session };
+				return val;
+			});
 			goto('/passwordReset');
 		} else {
 			// save the user session

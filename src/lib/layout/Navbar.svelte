@@ -3,9 +3,9 @@
     import supabase from '$lib/db';
     import { goto } from "$app/navigation"
 
-	user.subscribe((value) => {
-		console.log('STORE:user:', value);
-	});
+	// user.subscribe((value) => {
+	// 	console.log('STORE:user:', value);
+	// });
 
 	const logout = async () => {
 		let { error } = await supabase.auth.signOut();

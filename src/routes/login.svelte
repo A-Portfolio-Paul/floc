@@ -2,7 +2,6 @@
 	import { goto } from '$app/navigation';
 	import supabase from '$lib/db';
 	import { user } from '../lib/stores';
-	import Signin from '../lib/auth/signin.svelte';
 
 
 
@@ -14,8 +13,6 @@
 		let { user: userDetails, error } = await supabase.auth.signUp({
 			email: email,
 			password: password
-			// usname		jimmy@bob.com
-			// password: 'sAlUXbfIHTOjOsWMaUaP'
 		});
 		$user = userDetails;
 		goto('/');
@@ -27,9 +24,6 @@
 		});
 		$user = userDetails;
 		goto('/');
-	};
-	const sayHi = () => {
-		console.log('hi');
 	};
 	const forgotPassword = () => {
 		goto('/forgot');

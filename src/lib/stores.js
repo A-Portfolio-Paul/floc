@@ -4,4 +4,4 @@ import supabase from '$lib/db';
 
 export const user = writable(supabase.auth.user()
      ||false)
-export const session = writable('')
+export const sess = writable('')
