@@ -8,7 +8,6 @@
 
 	export let isNewRegistration = false;
 
-
 	user.subscribe((value) => {
 		console.log('STORE:user:', value);
 	});
@@ -16,17 +15,18 @@
 	let email = '';
 	let password = '';
 
-
 	const signup = async () => {
 		let { user: userDetails, error } = await supabase.auth.signUp({
 			email: email,
 			password: password
 		});
-		console.log('Error code:', error);
-		updateAlert('Please check your email', 'notify');
-		$user = userDetails;
-
-		goto('/');
+		if (error) {
+			console.log('error', error);
+		} else {
+			updateAlert('Please check your email', 'notify');
+			$user = userDetails;
+			goto('/');
+		}
 	};
 	const login = async () => {
 		let { user: userDetails, error } = await supabase.auth.signIn({
@@ -34,11 +34,12 @@
 			password: password
 		});
 		if (error) {
-			updateAlert(error, 'error');
+			updateAlert(error.message, 'error');
+		} else {
+			updateAlert('You have logged in!', 'notify');
+			$user = userDetails;
+			goto('/');
 		}
-		updateAlert('You have logged in!', 'notify');
-		$user = userDetails;
-		goto('/');
 	};
 
 	const forgotPassword = () => {
@@ -54,7 +55,7 @@
 </script>
 
 {#if isNewRegistration}
-	<Register bind:password={password} bind:email={email} signup={signup} bind:isNewRegistration={isNewRegistration} />
+	<Register bind:password bind:email {signup} bind:isNewRegistration />
 {:else}
-	<Login bind:password={password} bind:email={email} login={login} bind:isNewRegistration={isNewRegistration}  />
+	<Login bind:password bind:email {login} bind:isNewRegistration />
 {/if}

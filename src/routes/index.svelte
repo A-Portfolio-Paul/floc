@@ -28,7 +28,6 @@
 
 {#if $user.email}
 	<TodoContainer/>
-
 {:else}
 	<Home/>
 {/if}

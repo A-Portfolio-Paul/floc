@@ -29,7 +29,7 @@
 		</div>
 	</div>
 {:else if $alerts.msgType == 'error'}
-	<div class="flex items-center bg-red-500 border-l-4 border-red-700 py-2 px-3 shadow-md mb-2">
+	<div class="flex items-center bg-red-500 hover:bg-slate-400 border-l-4 border-red-700 py-2 px-3 shadow-md mb-2">
 		<!-- icons -->
 		<div class="text-red-500 rounded-full bg-white mr-3">
 			<svg

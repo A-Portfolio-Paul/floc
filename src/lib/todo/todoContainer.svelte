@@ -5,11 +5,13 @@
 	import { goto } from '$app/navigation';
 	import Todo from './Todo.svelte';
 
+	import Button from '../layout/furniture/buttons/Button.svelte';
+
 	let todos = [];
 	let newTask = '';
 	onMount(async () => {
-		console.log('mounted.....')
-		getSession()
+		console.log('mounted.....');
+		getSession();
 		await getAllTodos();
 		let { data, error } = await supabase.from('todos').select('*');
 		todos = data;
@@ -66,40 +68,47 @@
 		$user = false;
 		goto('/login');
 	};
-	const getSession = () =>{
-			supabase.auth.onAuthStateChange((event, session) => {
-		if (event === 'PASSWORD_RECOVERY') {
-			console.log('RECOVERY HAS BEEN REQUESTED', 'my_event:', event, 'my_session', session);
-			sess.update((val) => {
-				val = { session };
-				return val;
-			});
-			goto('/passwordReset');
-		} else {
-			// save the user session
-		}
-	});
-	}
-
+	const getSession = () => {
+		supabase.auth.onAuthStateChange((event, session) => {
+			if (event === 'PASSWORD_RECOVERY') {
+				console.log('RECOVERY HAS BEEN REQUESTED', 'my_event:', event, 'my_session', session);
+				sess.update((val) => {
+					val = { session };
+					return val;
+				});
+				goto('/passwordReset');
+			} else {
+				// save the user session
+			}
+		});
+	};
 </script>
 
-<h4>Welcome {$user?.email ? $user.email : ''}!</h4>
-<div class="addTodo">
-	<input type="text" bind:value={newTask} />
-	<button
-		on:click={() => {
-			addTask();
-		}}>Add task</button
+<section class="m-10 p-10 bg-slate-200 rounded-md">
+	<h1
+		class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center text-gray-800 font-black leading-7 md:leading-10"
 	>
-</div>
-{#each todos as todo}
-	<Todo {todo} {updateTodo} {deleteTodo} />
-{:else}
-	<p>no todos found</p>
-{/each}
-{#if $user.email}
-	<p on:click={logout} class="switch">logout</p>
-{/if}
+		Welcome {$user?.email ? $user.email : ''}!
+	</h1>
+	<div class="addTodo mt-5">
+		<input
+			class=" bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+			type="text"
+			bind:value={newTask}
+		/>
+		<Button label="Add Task" action={addTask} />
+	</div>
+	<div class="mt-10">
+		{#each todos as todo}
+			<Todo {todo} {updateTodo} {deleteTodo} />
+		{:else}
+			<p>no todos found</p>
+		{/each}
+		{#if $user.email}
+			<p on:click={logout} class="switch">logout</p>
+		{/if}
+	</div>
+</section>
 
 <svelte:window on:keypress={handleKeyPress} />
 

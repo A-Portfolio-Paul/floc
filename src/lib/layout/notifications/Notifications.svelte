@@ -1,5 +1,5 @@
 <script>
-	import { alerts } from '../../../stores';
+	import { alerts } from '../../stores';
 	import Notification from './Notification.svelte';
 	import Banner from '$lib/layout/Banner.svelte';
 
