@@ -9,7 +9,8 @@ import sveltePreprocess from 'svelte-preprocess';
 const config = {
 	preprocess: sveltePreprocess(),
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		target: '#svelte'
 	}
 };
 

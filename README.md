@@ -34,3 +34,7 @@ I took this project and added
 
 1. npm i
 2. npm run dev
+
+## Deployment
+
+Using this https://dev.to/danawoodman/deploying-a-sveltekit-app-to-netlify-5dc3
