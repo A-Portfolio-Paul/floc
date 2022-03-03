@@ -2,8 +2,7 @@
 	import { goto } from '$app/navigation';
 	import supabase from '$lib/db';
 	import { user } from '../lib/stores';
-
-
+	import { alerts } from '../lib/stores';
 
 	let email = '';
 	let password = '';
@@ -14,7 +13,10 @@
 			email: email,
 			password: password
 		});
+		console.log('Error code:', error);
+		updateAlert('Please check your email', 'notify');
 		$user = userDetails;
+
 		goto('/');
 	};
 	const login = async () => {
@@ -22,11 +24,28 @@
 			email: email,
 			password: password
 		});
+		if(error){
+			updateAlert(error, 'error');
+		}
+		updateAlert('You have logged in!', 'notify');
 		$user = userDetails;
 		goto('/');
 	};
+	
+
+
+
+
+
 	const forgotPassword = () => {
 		goto('/forgot');
+	};
+	// update alerts
+	const updateAlert = (msg, msgType) => {
+		alerts.update((val) => {
+			val = {'msg':msg, 'msgType':msgType};
+			return val;
+		});
 	};
 </script>
 
