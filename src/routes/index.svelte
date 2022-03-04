@@ -12,6 +12,7 @@
 
 	const getSession = () => {
 		supabase.auth.onAuthStateChange((event, session) => {
+			console.log('EVENT:',event)
 			if (event === 'PASSWORD_RECOVERY') {
 				console.log('RECOVERY HAS BEEN REQUESTED', 'my_event:', event, 'my_session', session);
 				sess.update((val) => {
@@ -19,8 +20,9 @@
 					return val;
 				});
 				goto('/passwordReset');
-			} else {
+			} else if (event === 'SIGNED_IN')  {
 				// save the user session
+				goto('/login');
 			}
 		});
 	};

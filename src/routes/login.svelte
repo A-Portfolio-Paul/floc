@@ -25,7 +25,7 @@
 		} else {
 			updateAlert('Please check your email', 'notify');
 			$user = userDetails;
-			goto('/');
+			goto('/login');
 		}
 	};
 	const login = async () => {

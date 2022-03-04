@@ -9,6 +9,8 @@
 class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex  items-center w-full  flex flex-col "
 >
 <div class="m-20 bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+    <h1 class="text-xl  text-center text-gray-800 font-black leading-7 md:leading-10">Login</h1>
+
     <div class="space-y-4">
         <div>
             <label for="email" class="block mb-1 text-gray-600 font-semibold">Email</label>
@@ -50,6 +52,6 @@ class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex  items-center
         </p>
     </div>
 </div>
-<p class="text-white hover:text-blue-200 hover:underline hover:cursor-pointer  text-xs mt-10">Forgot your password?</p>
+<a class="text-white hover:text-blue-200 hover:underline hover:cursor-pointer  text-xs mt-10">Forgot your password?</a>
 
 </div>

@@ -9,6 +9,7 @@ class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex  items-center
 >
 <div class="m-20 bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
     <div class="space-y-4">
+		<h1 class="text-xl  text-center text-gray-800 font-black leading-7 md:leading-10">Register a new user</h1>
 				<div>
 					<label for="email" class="block mb-1 text-gray-600 font-semibold">Email</label>
 					<input

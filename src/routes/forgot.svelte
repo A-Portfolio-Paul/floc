@@ -14,21 +14,23 @@
 		class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full  flex flex-col  justify-center"
 	>
 		<div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+
 			<div class="space-y-4">
 				<div>
-					<h2>Please check your email</h2>
+					<h2>Please check your emails</h2>
 				</div>
 			</div>
 		</div>
 	</div>
 {:else}
 	<div
-		class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full  flex flex-col  justify-center"
-	>
+		class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full  flex flex-col  justify-center">
+		
 		<div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+				<h1 class="text-xl  text-center text-gray-800 font-black leading-7 md:leading-10">Reset Password</h1>
 			<div class="space-y-4">
 				<div>
-					<label for="email" class="block mb-1 text-gray-600 font-semibold"
+					<label for="email" class="block mt-3 mb-1 text-gray-600 font-semibold"
 						>Please enter your email</label
 					>
 					<input
