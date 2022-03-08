@@ -39,6 +39,8 @@
 		<h2 class="pb-4">Enter new password</h2>
 		<div class="space-y-4" />
 		<div>
+
+			
 			<input
 				bind:value={password}
 				type="password"
