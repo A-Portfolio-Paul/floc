@@ -1,30 +1,43 @@
 <script>
 	import { goto } from '$app/navigation';
 	import supabase from '$lib/db';
+	import { alerts } from '../lib/stores';
+
 	import { user, sess } from '../lib/stores';
 
 	user.subscribe((value) => {
 		console.log('STORE:user:', value);
 	});
 	sess.subscribe((value) => {
-		console.log('Sess:user:', value);
+		console.log('Sess1::', value);
+		console.log('Sess2::', value.session);
+		console.log('Sess3::', value.session.access_token);
 	});
 	let password = '';
 
 	const resetPassword = async () => {
-		const { error, data } = await supabase.auth.api.updateUser($sess, {
+		const { error, data } = await supabase.auth.api.updateUser($sess.session.access_token, {
 			password: password
 		});
+		updateAlert('You have changed your password, Please Login', 'notify');
 		goto('/login');
+	};
+
+	// update alerts
+	const updateAlert = (msg, msgType) => {
+		alerts.update((val) => {
+			val = { msg: msg, msgType: msgType };
+			return val;
+		});
 	};
 </script>
 
 <div
-	class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full flex flex-col  justify-center ">
+	class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full flex flex-col  justify-center "
+>
 	<div class="  bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
 		<h2 class="pb-4">Enter new password</h2>
-		<div class="space-y-4">
-		</div>
+		<div class="space-y-4" />
 		<div>
 			<input
 				bind:value={password}
