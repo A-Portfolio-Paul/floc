@@ -1,5 +1,5 @@
 
-<a class="px-6 py-1 flex flex-col md:flex-row md:items-center" href="/login">
+<a class="hover:text-green-500 hover:underline px-6 py-1 flex flex-col md:flex-row md:items-center" href="/login">
     <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"

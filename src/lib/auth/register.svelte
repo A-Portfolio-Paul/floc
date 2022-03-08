@@ -5,7 +5,7 @@
     export let isNewRegistration
 </script>
 <div
-class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex  items-center w-full  flex flex-col "
+class="h-screen bg-gray-100 flex  items-center w-full  flex flex-col "
 >
 <div class="m-20 bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
     <div class="space-y-4">

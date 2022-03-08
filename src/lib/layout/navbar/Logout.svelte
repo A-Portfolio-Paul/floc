@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="px-6 py-1 flex flex-col md:flex-row md:items-center hover:cursor-pointer "
+	class="hover:text-green-500 hover:underline px-6 py-1 flex flex-col md:flex-row md:items-center hover:cursor-pointer "
 	on:click={logout}
 >
 	<svg
