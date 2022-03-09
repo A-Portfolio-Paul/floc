@@ -1,4 +1,5 @@
 <script>
+import Icon from "$lib/layout/furniture/Icon.svelte";
 import FlocContainer from "./FlocContainer.svelte";
 
 </script>
@@ -19,7 +20,7 @@ import Banner from "$lib/layout/Banner.svelte";
 
 </script>
 <script>
-import TodoContainer from '../todo/todoContainer.svelte';
+import TodoContainer from '../';
 import Document from './FlocContainer.svelte'
 let todo = true
 
@@ -35,5 +36,5 @@ const toggle =() => {
 {#if todo}
 <TodoContainer/>
 {:else}
-<Document>
-{/if } 
+<Document/>
+{/if}
