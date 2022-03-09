@@ -3,8 +3,8 @@
 	import supabase from '$lib/db';
 	import { user, sess } from '../lib/stores';
 	import { goto } from '$app/navigation';
-	import TodoContainer from '../lib/todo/todoContainer.svelte';
 	import Home from '../lib/content/home.svelte'
+	import MyHome from '../lib/myDocuments/MyHome.svelte'
 
 	onMount(async () => {
 		getSession();
@@ -29,7 +29,7 @@
 </script>
 
 {#if $user.email}
-	<TodoContainer/>
+<MyHome/>
 {:else}
 	<Home/>
 {/if}
