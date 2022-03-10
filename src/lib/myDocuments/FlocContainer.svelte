@@ -3,66 +3,70 @@
 	import supabase from '$lib/db';
 	import { user, sess } from '../stores';
 	import { goto } from '$app/navigation';
-	import Todo from './todo.svelte';
 
-	import Button from '../layout/furniture/buttons/Button.svelte';
+	let docs = []
+	let allUsers = []
 
-	let todos = [];
-	let newTask = '';
 	onMount(async () => {
 		console.log('mounted.....');
 		getSession();
-		await getAllTodos();
-		let { data, error } = await supabase.from('todos').select('*');
-		todos = data;
-	});
-	const getAllTodos = async () => {
-		try {
-			let { data, err } = await supabase.from('todos').select('*');
-			todos = data;
-		} catch {
-			console.log(err);
-		}
-	};
-	const addTask = async (task) => {
-		console.log('add task');
-		try {
-			const { data, error } = await supabase
-				.from('todos')
-				.insert([{ task: newTask, user_id: $user.id }]);
-			await getAllTodos();
-			newTask = '';
-		} catch {
-			console.log(error);
-		}
-	};
+		await getDocs();
+		let { data, error } = await supabase.from('documents').select('*');
+		docs = data;
+		console.log('docs:', docs)
 
-	const updateTodo = async (todo) => {
-		console.table(todo);
+
+	});
+	const getDocs = async () => {
 		try {
-			const { data, error } = await supabase
-				.from('todos')
-				.update({ task: todo.task, isComplete: todo.isComplete })
-				.eq('id', todo.id);
-			await getAllTodos();
-		} catch {
-			console.log(error);
-		}
-	};
-	const deleteTodo = async (todo) => {
-		try {
-			const { data, error } = await supabase.from('todos').delete().eq('id', todo.id);
-			await getAllTodos();
+			let { data, err } = await supabase.from('documents').select('*');
+			docs = data;
 		} catch {
 			console.log(err);
 		}
 	};
-	const handleKeyPress = (event) => {
-		console.log(event);
-		if (event.key == 'Enter' && newTask != '') {
-			addTask();
+	const getUSers = async () => {
+		try {
+			let { data, err } = await supabase.from('users').select('*');
+			docs = data;
+		} catch {
+			console.log(err);
 		}
 	};
+	// const addTask = async (task) => {
+	// 	console.log('add task');
+	// 	try {
+	// 		const { data, error } = await supabase
+	// 			.from('todos')
+	// 			.insert([{ task: newTask, user_id: $user.id }]);
+	// 		await getAllTodos();
+	// 		newTask = '';
+	// 	} catch {
+	// 		console.log(error);
+	// 	}
+	// };
+
+	// const updateTodo = async (todo) => {
+	// 	console.table(todo);
+	// 	try {
+	// 		const { data, error } = await supabase
+	// 			.from('todos')
+	// 			.update({ task: todo.task, isComplete: todo.isComplete })
+	// 			.eq('id', todo.id);
+	// 		await getAllTodos();
+	// 	} catch {
+	// 		console.log(error);
+	// 	}
+	// };
+	// const deleteTodo = async (todo) => {
+	// 	try {
+	// 		const { data, error } = await supabase.from('todos').delete().eq('id', todo.id);
+	// 		await getAllTodos();
+	// 	} catch {
+	// 		console.log(err);
+	// 	}
+	// };
+
 	const logout = async () => {
 		let { error } = await supabase.auth.signOut();
 		$user = false;
@@ -90,27 +94,9 @@
 	>
 		Welcome {$user?.email ? $user.email : ''}!
 	</h1>
-	<div class="addTodo mt-5">
-		<input
-			class=" bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-			type="text"
-			bind:value={newTask}
-		/>
-		<Button label="Add Task" action={addTask} />
-	</div>
-	<div class="mt-10">
-		{#each todos as todo}
-			<Todo {todo} {updateTodo} {deleteTodo} />
-		{:else}
-			<p>no todos found</p>
-		{/each}
-		{#if $user.email}
-			<p on:click={logout} class="switch">logout</p>
-		{/if}
-	</div>
+	{docs}
 </section>
 
-<svelte:window on:keypress={handleKeyPress} />
 
 <style>
 	.addTodo {
