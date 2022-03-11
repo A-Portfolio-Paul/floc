@@ -8,3 +8,4 @@ export const sess = writable('')
 
 export const alerts = writable({})
 export const userDocIds = writable({})
+export const documents = writable({})

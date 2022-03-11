@@ -1,28 +1,31 @@
 <script>
 	import { onMount } from 'svelte';
 	import supabase from '$lib/db';
-	import { user, sess, userDocIds } from '../stores';
+	import { user, sess, userDocIds, documents } from '../../stores';
 	import { goto } from '$app/navigation';
 
 	let docs = [];
 	let allUsers = [];
 
-	onMount(async () => {
-		console.log('mounted.....');
-		getSession();
-		let docs = await getUserDocs($userDocIds);
-		console.log('MNT:docs',docs)
+	documents.subscribe((value) => {
+		console.log('STORE:Documents:', value);
 	});
 
+	onMount(async () => {
+		getSession();
+		let docs = await getUserDocs($userDocIds);
+
+	});
 
 	const getUserDocs = async (userDocIds) => {
-		let arr=['1','2','3']
+		console.log('userDocIds',userDocIds)
 		try {
 			let { data, error } = await supabase.from('documents').select('*').in('id', userDocIds[0].document_id)			
 			docs = data;
 			console.log('getUserDocs:RESR:documents',docs)
+			updateStoreDocs(docs) 
 		} catch {
-			console.log('BIG BAD ERROR',error);
+			console.log('BIG BAD ERROR');
 		}
 		return docs
 	};
@@ -46,6 +49,12 @@
 			}
 		});
 	};
+	const updateStoreDocs = (docs) =>{
+		documents.update((val) => {
+			val = docs;
+			return val;
+		});
+	}
 </script>
 
 <section class="m-10 p-10 bg-slate-200 rounded-md">
@@ -57,16 +66,3 @@
 	{docs}
 </section>
 
-<style>
-	.addTodo {
-		display: flex;
-		margin-bottom: 0.5em;
-	}
-	:global(.switch) {
-		color: skyblue;
-		cursor: pointer;
-	}
-	:global(.switch:hover) {
-		text-decoration: underline;
-	}
-</style>

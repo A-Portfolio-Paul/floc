@@ -4,6 +4,7 @@
 	import { user, alerts, userDocIds } from '../lib/stores';
 	import Register from '../lib/auth/register.svelte';
 	import Login from '../lib/auth/login.svelte';
+	import {updateAlert} from '../lib/functions/alerts'
 
 	export let isNewRegistration = false;
 
@@ -13,23 +14,9 @@
 	userDocIds.subscribe((value) => {
 		console.log('STORE:userDocIds:', value);
 	});
-
+	//set vars
 	let email = '';
 	let password = '';
-
-	const getUSersDocs = async () => {
-		try {
-			let { data, error } = await supabase.from('users_documents').select('*');
-			docs = data;
-		} catch {
-			console.log(error);
-		}
-
-
-
-
-
-	};
 
 	const signup = async () => {
 		let { user: userDetails, error } = await supabase.auth.signUp({
@@ -54,6 +41,7 @@
 			updateAlert(error.message, 'error');
 		} else {
 			updateAlert('You have logged in!', 'notify');
+			// Update user details
 			$user = userDetails;
 			updateDocIds($user.id);
 			goto('/');
@@ -63,18 +51,32 @@
 	const forgotPassword = () => {
 		goto('/forgot');
 	};
-	// UPDATE STORES
 
-	// update alerts
-	const updateAlert = (msg, msgType) => {
-		alerts.update((val) => {
-			val = { msg: msg, msgType: msgType };
-			return val;
-		});
+	const getUSersDocs = async () => {
+		try {
+			let { data, error } = await supabase.from('users_documents').select('*');
+			docs = data;
+		} catch {
+			console.log(error);
+		}
 	};
+
+
+	// Update store for users documents
+	const getUserDocs = async (userDocIds) => {
+		let arr=['1','2','3']
+		try {
+			let { data, error } = await supabase.from('documents').select('*').in('id', userDocIds[0].document_id)			
+			docs = data;
+			console.log('getUserDocs:RESR:documents',docs)
+		} catch {
+			console.log('BIG BAD ERROR',error);
+		}
+		return docs
+	};
+
 	// update userDocs
 	const updateDocIds = async (userId) => {
-		console.log('arg:userId', userId)
 		let { data: users_documents, err } = await supabase
 			.from('users_documents')
 			.select('document_id')
@@ -82,11 +84,14 @@
 		if (err) {
 			updateAlert(error.message, 'error');
 		} else {
-			updateAlert('got doc list', 'notify');
-			console.log('document_ids',users_documents)
 			updateStoreUserDocs(users_documents);
 		}
 	};
+
+
+
+
+
 
 	const updateStoreUserDocs = (doc_ids) => {
 		userDocIds.update((val) => {
@@ -101,3 +106,10 @@
 {:else}
 	<Login bind:password bind:email {login} bind:isNewRegistration />
 {/if}
+
+
+// STEPS - move login to function
+
+// login
+	// authenticate
+	// then updateDocuments

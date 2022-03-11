@@ -1,11 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
 	import supabase from '$lib/db';
-	import { user, sess } from '../stores';
+	import { user, sess } from '../../stores';
 	import { goto } from '$app/navigation';
 	import Todo from './todo.svelte';
 
-	import Button from '../layout/furniture/buttons/Button.svelte';
+	import Button from '../../layout/furniture/buttons/Button.svelte';
 
 	let todos = [];
 	let newTask = '';

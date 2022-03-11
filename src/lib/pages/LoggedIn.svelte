@@ -1,7 +1,7 @@
 
 <script>
-import TodoContainer from '../todo/todoContainer.svelte'
-import Document from './FlocContainer.svelte'
+import TodoContainer from '../docs/todo/todoContainer.svelte'
+import Document from '../docs/myDocuments/FlocsContainer.svelte'
 import Button from '$lib/layout/furniture/buttons/Button.svelte'
 let todo = true
 
