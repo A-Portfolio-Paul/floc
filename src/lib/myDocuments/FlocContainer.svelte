@@ -1,71 +1,31 @@
 <script>
 	import { onMount } from 'svelte';
 	import supabase from '$lib/db';
-	import { user, sess } from '../stores';
+	import { user, sess, userDocIds } from '../stores';
 	import { goto } from '$app/navigation';
 
-	let docs = []
-	let allUsers = []
+	let docs = [];
+	let allUsers = [];
 
 	onMount(async () => {
 		console.log('mounted.....');
 		getSession();
-		await getDocs();
-		let { data, error } = await supabase.from('documents').select('*');
-		docs = data;
-		console.log('docs:', docs)
-
-
+		let docs = await getUserDocs($userDocIds);
+		console.log('MNT:docs',docs)
 	});
-	const getDocs = async () => {
-		try {
-			let { data, err } = await supabase.from('documents').select('*');
-			docs = data;
-		} catch {
-			console.log(err);
-		}
-	};
-	const getUSers = async () => {
-		try {
-			let { data, err } = await supabase.from('users').select('*');
-			docs = data;
-		} catch {
-			console.log(err);
-		}
-	};
-	// const addTask = async (task) => {
-	// 	console.log('add task');
-	// 	try {
-	// 		const { data, error } = await supabase
-	// 			.from('todos')
-	// 			.insert([{ task: newTask, user_id: $user.id }]);
-	// 		await getAllTodos();
-	// 		newTask = '';
-	// 	} catch {
-	// 		console.log(error);
-	// 	}
-	// };
 
-	// const updateTodo = async (todo) => {
-	// 	console.table(todo);
-	// 	try {
-	// 		const { data, error } = await supabase
-	// 			.from('todos')
-	// 			.update({ task: todo.task, isComplete: todo.isComplete })
-	// 			.eq('id', todo.id);
-	// 		await getAllTodos();
-	// 	} catch {
-	// 		console.log(error);
-	// 	}
-	// };
-	// const deleteTodo = async (todo) => {
-	// 	try {
-	// 		const { data, error } = await supabase.from('todos').delete().eq('id', todo.id);
-	// 		await getAllTodos();
-	// 	} catch {
-	// 		console.log(err);
-	// 	}
-	// };
+
+	const getUserDocs = async (userDocIds) => {
+		let arr=['1','2','3']
+		try {
+			let { data, error } = await supabase.from('documents').select('*').in('id', userDocIds[0].document_id)			
+			docs = data;
+			console.log('getUserDocs:RESR:documents',docs)
+		} catch {
+			console.log('BIG BAD ERROR',error);
+		}
+		return docs
+	};
 
 	const logout = async () => {
 		let { error } = await supabase.auth.signOut();
@@ -96,7 +56,6 @@
 	</h1>
 	{docs}
 </section>
-
 
 <style>
 	.addTodo {

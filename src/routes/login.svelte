@@ -19,11 +19,16 @@
 
 	const getUSersDocs = async () => {
 		try {
-			let { data, err } = await supabase.from('users_documents').select('*');
+			let { data, error } = await supabase.from('users_documents').select('*');
 			docs = data;
 		} catch {
-			console.log(err);
+			console.log(error);
 		}
+
+
+
+
+
 	};
 
 	const signup = async () => {
