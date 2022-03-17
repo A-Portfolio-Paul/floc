@@ -4,38 +4,9 @@
 	import { user, sess, documents } from '../../stores';
 	import { goto } from '$app/navigation';
 
-	let docs = [];
-	let allUsers = [];
 
-	documents.subscribe((value) => {
-		console.log('STORE:Documents:', value);
-	});
 
-	onMount(async () => {
-		getSession();
-		let docs = await getUserDocs($userDocIds);
-	});
 
-	const logout = async () => {
-		let { error } = await supabase.auth.signOut();
-		$user = false;
-		updateAlert('You are logged out', 'notify');
-		goto('/');
-	};
-	const getSession = () => {
-		supabase.auth.onAuthStateChange((event, session) => {
-			if (event === 'PASSWORD_RECOVERY') {
-				console.log('RECOVERY HAS BEEN REQUESTED', 'my_event:', event, 'my_session', session);
-				sess.update((val) => {
-					val = { session };
-					return val;
-				});
-				goto('/passwordReset');
-			} else {
-				// save the user session
-			}
-		});
-	};
 </script>
 
 <section class="m-10 p-10 bg-slate-200 rounded-md">
@@ -46,7 +17,7 @@
 	</h1>
 	<h2 class="underline ">My Flocs</h2>
 	<ul>
-		{#each docs as doc}
+		{#each $documents as doc}
 			<li>-{doc.name}</li>
 		{/each}
 	</ul>

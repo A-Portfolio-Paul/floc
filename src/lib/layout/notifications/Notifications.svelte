@@ -17,6 +17,6 @@
 <!-- class="absolute right-0 top-0 m-5" For put toast on top right -->
 {#if displayNotification == true}
 	<div on:click={hide} class="pt-4 flex flex-col justify-center">
-		<Notification {alerts} />
+		<Notification />
 	</div>
 {/if}
