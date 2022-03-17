@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import supabase from '$lib/db';
-	import { user, userDocIds, documents } from '../lib/stores';
+	import { user, documents } from '../lib/stores';
 	import Register from '../lib/auth/register.svelte';
 	import Login from '../lib/auth/login.svelte';
 	import { updateAlert } from '../lib/functions/alerts';
@@ -10,8 +10,8 @@
 	user.subscribe((value) => {
 		console.log('STORE:user:', value);
 	});
-	userDocIds.subscribe((value) => {
-		console.log('STORE:userDocIds:', value);
+	documents.subscribe((value) => {
+		console.log('STORE:documents:', value);
 	});
 	//set vars
 	let email = '';
@@ -46,11 +46,11 @@
 		if (error) {
 			updateAlert(error.message, 'error');
 		} else {
+			console.log('you are logged in')
 			updateAlert('You have logged in!', 'notify');
 			// Update user details
 			$user = userDetails;
-			// updateDocIds($user.id);
-			// goto('/');
+			goto('/');
 		}
 	};
 
@@ -63,18 +63,12 @@
 		if (err) {
 			updateAlert(error.message, 'error');
 		} else {
-			updateStoreUserDocs(users_documents);
-			return users_documents;
+			return users_documents; 
 		}
 	};
 
-	const updateStoreUserDocs = (doc_ids) => {
-		userDocIds.update((val) => {
-			val = doc_ids;
-			return val;
-		});
-	};
 	const getUserDocs = async (userDocIds) => {
+		console.log('getUserDocs')
 		let { data, error } = await supabase
 			.from('documents')
 			.select('*')
@@ -84,12 +78,18 @@
 		} else {
 			let docs;
 			docs = data;
-			updateStoreDocs(docs);
+			return docs
 		}
 	};
 
 	const updateStoreDocs = (docs) => {
 		documents.update((val) => {
+			val = docs;
+			return val;
+		});
+	};
+	const updateStoreUser = (docs) => {
+		user.update((val) => {
 			val = docs;
 			return val;
 		});

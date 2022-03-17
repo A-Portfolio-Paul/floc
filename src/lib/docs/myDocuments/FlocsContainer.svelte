@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import supabase from '$lib/db';
-	import { user, sess, userDocIds, documents } from '../../stores';
+	import { user, sess, documents } from '../../stores';
 	import { goto } from '$app/navigation';
 
 	let docs = [];
@@ -16,26 +16,11 @@
 		let docs = await getUserDocs($userDocIds);
 	});
 
-	const getUserDocs = async (userDocIds) => {
-		console.log('userDocIds', userDocIds);
-		try {
-			let { data, error } = await supabase
-				.from('documents')
-				.select('*')
-				.in('id', userDocIds[0].document_id);
-			docs = data;
-			console.log('getUserDocs:RESR:documents', docs);
-			updateStoreDocs(docs);
-		} catch {
-			console.log('BIG BAD ERROR');
-		}
-		return docs;
-	};
-
 	const logout = async () => {
 		let { error } = await supabase.auth.signOut();
 		$user = false;
-		goto('/login');
+		updateAlert('You are logged out', 'notify');
+		goto('/');
 	};
 	const getSession = () => {
 		supabase.auth.onAuthStateChange((event, session) => {
@@ -49,12 +34,6 @@
 			} else {
 				// save the user session
 			}
-		});
-	};
-	const updateStoreDocs = (docs) => {
-		documents.update((val) => {
-			val = docs;
-			return val;
 		});
 	};
 </script>
@@ -72,6 +51,6 @@
 		{/each}
 	</ul>
 </section>
-<style>
 
+<style>
 </style>

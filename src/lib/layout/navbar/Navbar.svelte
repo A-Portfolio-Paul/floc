@@ -1,5 +1,5 @@
 <script>
-	import { user , userDocIds} from '../../../lib/stores';
+	import { user } from '../../../lib/stores';
 	import supabase from '$lib/db';
 	import { goto } from '$app/navigation';
 	import Login from './Login.svelte';
@@ -16,7 +16,6 @@
 			updateAlert(error.message, 'error');
 		} else {
 			$user = false;
-			$userDocIds = false
 			updateAlert('You are logged out', 'notify');
 			goto('/');
 		}

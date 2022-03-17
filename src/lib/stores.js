@@ -7,5 +7,4 @@ export const user = writable(supabase.auth.user()
 export const sess = writable('')
 
 export const alerts = writable({})
-export const userDocIds = writable({})
 export const documents = writable({})
