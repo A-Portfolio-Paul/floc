@@ -1,5 +1,6 @@
 <script>
 	export let alerts;
+	console.log('alerts', alerts)
 </script>
 
 {#if $alerts.msgType == 'notify'}

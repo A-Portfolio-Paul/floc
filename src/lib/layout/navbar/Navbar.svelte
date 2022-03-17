@@ -1,25 +1,10 @@
 <script>
 	import { user } from '../../../lib/stores';
-	import supabase from '$lib/db';
-	import { goto } from '$app/navigation';
 	import Login from './Login.svelte';
 	import Logout from './Logout.svelte';
 	import Icon from '../furniture/Icon.svelte';
-	import { updateAlert } from '../../functions/alerts';
-
-	user.subscribe((value) => {
-		console.log('STORE:user:', value);
-	});
-	const logout = async () => {
-		let { err } = await supabase.auth.signOut();
-		if (err) {
-			updateAlert(error.message, 'error');
-		} else {
-			$user = false;
-			updateAlert('You are logged out', 'notify');
-			goto('/');
-		}
-	};
+	import { logout } from '../../functions/logout';
+	
 </script>
 
 <div class="bg-gray-500 ">

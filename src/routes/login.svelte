@@ -34,7 +34,8 @@
 	const login = async () => {
 		await authenticate();
 		const userDocIds = await updateDocIds($user.id);
-		await getUserDocs(userDocIds);
+		const docs = await getUserDocs(userDocIds);
+		await updateStoreDocs(docs)
 		await goto('/');
 	};
 
@@ -55,7 +56,7 @@
 	};
 
 	// update userDocs
-	const updateDocIds = async (userId) => {
+	const updateDocIds = async (userId) => {	
 		let { data: users_documents, err } = await supabase
 			.from('users_documents')
 			.select('document_id')
@@ -63,12 +64,12 @@
 		if (err) {
 			updateAlert(error.message, 'error');
 		} else {
+			console.log('got docs:',users_documents)
 			return users_documents; 
 		}
 	};
 
 	const getUserDocs = async (userDocIds) => {
-		console.log('getUserDocs')
 		let { data, error } = await supabase
 			.from('documents')
 			.select('*')
@@ -82,7 +83,7 @@
 		}
 	};
 
-	const updateStoreDocs = (docs) => {
+	const updateStoreDocs = async (docs) => {
 		documents.update((val) => {
 			val = docs;
 			return val;

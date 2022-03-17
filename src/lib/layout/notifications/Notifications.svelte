@@ -1,12 +1,11 @@
 <script>
 	import { alerts } from '../../stores';
 	import Notification from './Notification.svelte';
-	import Banner from '$lib/layout/Banner.svelte';
+	// import Banner from '$lib/layout/Banner.svelte';
 
 	alerts.subscribe((value) => {
 		console.log('STORE:alerts:', value,'alerts length:',value.length);
 	});
-	let msg = 'Password has been reset';
 	let displayNotification = true; // this will be a prop
 
 	const hide = () => {
