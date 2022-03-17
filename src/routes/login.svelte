@@ -47,9 +47,7 @@
 		if (error) {
 			updateAlert(error.message, 'error');
 		} else {
-			console.log('you are logged in')
-			updateAlert('You have logged in!', 'notify');
-			// Update user details
+			updateAlert('Login successful', 'notify');
 			$user = userDetails;
 			goto('/');
 		}
