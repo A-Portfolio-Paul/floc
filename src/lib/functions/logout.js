@@ -24,6 +24,10 @@ const clearStores = () => {
 		val = false;
 		return val;
 	});
+	alerts.update((val) => {
+		val = false;
+		return val;
+	});
 };
 
 export { logout };

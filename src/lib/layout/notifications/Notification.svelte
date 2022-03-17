@@ -1,8 +1,7 @@
 <script>
-	export let alerts;
-	console.log('alerts', alerts)
-</script>
+	import { alerts } from '../../stores';
 
+</script>
 {#if $alerts.msgType == 'notify'}
 	<!-- Toast Notification Success-->
 	<div

@@ -32,29 +32,25 @@
 	};
 
 	const login = async () => {
-		await authenticate();
-		const userDocIds = await updateDocIds($user.id);
-		const docs = await getUserDocs(userDocIds);
-		await updateStoreDocs(docs)
-		await goto('/');
-	};
-
-	const authenticate = async () => {
 		let { user: userDetails, error } = await supabase.auth.signIn({
 			email: email,
 			password: password
 		});
 		if (error) {
 			updateAlert(error.message, 'error');
+			await goto('/login')
 		} else {
 			updateAlert('Login successful', 'notify');
 			$user = userDetails;
-			goto('/');
+			const userDocIds = await updateDocIds($user.id);
+			const docs = await getUserDocs(userDocIds);
+			await updateStoreDocs(docs);
+			await goto('/');
 		}
 	};
 
 	// update userDocs
-	const updateDocIds = async (userId) => {	
+	const updateDocIds = async (userId) => {
 		let { data: users_documents, err } = await supabase
 			.from('users_documents')
 			.select('document_id')
@@ -62,8 +58,7 @@
 		if (err) {
 			updateAlert(error.message, 'error');
 		} else {
-			console.log('got docs:',users_documents)
-			return users_documents; 
+			return users_documents;
 		}
 	};
 
@@ -77,7 +72,7 @@
 		} else {
 			let docs;
 			docs = data;
-			return docs
+			return docs;
 		}
 	};
 
