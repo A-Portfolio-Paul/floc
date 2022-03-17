@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import supabase from '$lib/db';
-	import { user, userDocIds } from '../lib/stores';
+	import { user, userDocIds, documents } from '../lib/stores';
 	import Register from '../lib/auth/register.svelte';
 	import Login from '../lib/auth/login.svelte';
 	import { updateAlert } from '../lib/functions/alerts';
@@ -32,9 +32,10 @@
 	};
 
 	const login = async () => {
-		await authenticate()
-		await updateDocIds($user.id);
-		await goto('/') ;
+		await authenticate();
+		const userDocIds = await updateDocIds($user.id);
+		await getUserDocs(userDocIds);
+		await goto('/');
 	};
 
 	const authenticate = async () => {
@@ -63,12 +64,33 @@
 			updateAlert(error.message, 'error');
 		} else {
 			updateStoreUserDocs(users_documents);
+			return users_documents;
 		}
 	};
 
 	const updateStoreUserDocs = (doc_ids) => {
 		userDocIds.update((val) => {
 			val = doc_ids;
+			return val;
+		});
+	};
+	const getUserDocs = async (userDocIds) => {
+		let { data, error } = await supabase
+			.from('documents')
+			.select('*')
+			.in('id', userDocIds[0].document_id);
+		if (error) {
+			console.log('BIG BAD ERROR', error);
+		} else {
+			let docs;
+			docs = data;
+			updateStoreDocs(docs);
+		}
+	};
+
+	const updateStoreDocs = (docs) => {
+		documents.update((val) => {
+			val = docs;
 			return val;
 		});
 	};

@@ -14,20 +14,22 @@
 	onMount(async () => {
 		getSession();
 		let docs = await getUserDocs($userDocIds);
-
 	});
 
 	const getUserDocs = async (userDocIds) => {
-		console.log('userDocIds',userDocIds)
+		console.log('userDocIds', userDocIds);
 		try {
-			let { data, error } = await supabase.from('documents').select('*').in('id', userDocIds[0].document_id)			
+			let { data, error } = await supabase
+				.from('documents')
+				.select('*')
+				.in('id', userDocIds[0].document_id);
 			docs = data;
-			console.log('getUserDocs:RESR:documents',docs)
-			updateStoreDocs(docs) 
+			console.log('getUserDocs:RESR:documents', docs);
+			updateStoreDocs(docs);
 		} catch {
 			console.log('BIG BAD ERROR');
 		}
-		return docs
+		return docs;
 	};
 
 	const logout = async () => {
@@ -49,12 +51,12 @@
 			}
 		});
 	};
-	const updateStoreDocs = (docs) =>{
+	const updateStoreDocs = (docs) => {
 		documents.update((val) => {
 			val = docs;
 			return val;
 		});
-	}
+	};
 </script>
 
 <section class="m-10 p-10 bg-slate-200 rounded-md">
@@ -63,6 +65,13 @@
 	>
 		Welcome {$user?.email ? $user.email : ''}!
 	</h1>
-	{docs}
+	<h2 class="underline ">My Flocs</h2>
+	<ul>
+		{#each docs as doc}
+			<li>-{doc.name}</li>
+		{/each}
+	</ul>
 </section>
+<style>
 
+</style>
