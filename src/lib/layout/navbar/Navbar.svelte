@@ -4,22 +4,28 @@
 	import { goto } from '$app/navigation';
 	import Login from './Login.svelte';
 	import Logout from './Logout.svelte';
-	import Icon from '../furniture/Icon.svelte'
+	import Icon from '../furniture/Icon.svelte';
+	import { updateAlert } from '../../functions/alerts';
 
 	user.subscribe((value) => {
 		console.log('STORE:user:', value);
 	});
 	const logout = async () => {
-		let { error } = await supabase.auth.signOut();
-		$user = false;
-		goto('/login');
+		let { err } = await supabase.auth.signOut();
+		if (err) {
+			updateAlert(error.message, 'error');
+		} else {
+			$user = false;
+			updateAlert('You are logged out', 'notify');
+			goto('/');
+		}
 	};
 </script>
 
 <div class="bg-gray-500 ">
 	<nav class="bg-white px-6 relative ">
 		<div class="flex flex-row justify-between items-center py-2">
-			<Icon/>
+			<Icon />
 			<div class="group flex flex-col items-center">
 				<button class="p-2 rounded-lg md:hidden">
 					<svg
@@ -39,7 +45,10 @@
 					<div
 						class="flex flex-row justify-center items-center text-center font-semibold text-gray-500"
 					>
-						<a class="hover:text-green-500 hover:underline px-6 py-1 flex flex-col md:flex-row md:items-center" href="/">
+						<a
+							class="hover:text-green-500 hover:underline px-6 py-1 flex flex-col md:flex-row md:items-center"
+							href="/"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="currentColor"
