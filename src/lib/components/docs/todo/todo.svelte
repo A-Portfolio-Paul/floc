@@ -1,6 +1,5 @@
 <script>
 	export let todo, updateTodo, deleteTodo;
-	import Banner from '$lib/layout/Banner.svelte';
 	import Button from '../../layout/furniture/buttons/Button.svelte'
 </script>
 
