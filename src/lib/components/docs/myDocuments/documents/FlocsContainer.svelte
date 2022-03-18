@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import supabase from '$lib/db';
-	import { user, sess, documents } from '../../stores';
+	import { user, sess, documents } from '../../../../stores';
 	import { goto } from '$app/navigation';
 
 

@@ -1,6 +1,6 @@
 <script>
 	import TodoContainer from '../docs/todo/todoContainer.svelte';
-	import Document from '../docs/myDocuments/FlocsContainer.svelte';
+	import Document from '../docs/myDocuments/documents/FlocsContainer.svelte';
 	import Button from '$lib/layout/furniture/buttons/Button.svelte';
 	let todo = true;
 

@@ -2,8 +2,8 @@
 	import { goto } from '$app/navigation';
 	import supabase from '$lib/db';
 	import { user, documents } from '../lib/stores';
-	import Register from '../lib/auth/register.svelte';
-	import Login from '../lib/auth/login.svelte';
+	import Register from '../lib/components/auth/register.svelte';
+	import Login from '../lib/components/auth/login.svelte';
 	import { updateAlert } from '../lib/functions/alerts';
 	export let isNewRegistration = false;
 
