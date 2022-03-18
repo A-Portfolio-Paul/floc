@@ -1,5 +1,5 @@
 <script>
-	import { alerts } from '../../stores';
+	import { alerts } from '../../../stores';
 
 </script>
 {#if $alerts.msgType == 'notify'}

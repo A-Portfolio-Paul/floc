@@ -1,11 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
-	import supabase from '$lib/db';
-	import { user, sess, documents } from '../../../../stores';
-	import { goto } from '$app/navigation';
-
-
-
+	import { user, documents } from '../../../stores';
+	import Document from './document/Document.svelte'
 
 </script>
 
@@ -22,6 +17,6 @@
 		{/each}
 	</ul>
 </section>
-
+<Document/>
 <style>
 </style>

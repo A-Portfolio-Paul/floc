@@ -3,8 +3,8 @@
 	import supabase from '$lib/db';
 	import { user, sess } from '../lib/stores';
 	import { goto } from '$app/navigation';
-	import Home from '../lib/pages/home.svelte';
-	import LoggedIn from '../lib/pages/LoggedIn.svelte';
+	import Home from '../lib/components/pages/home.svelte';
+	import LoggedIn from '../lib/components/pages/LoggedIn.svelte';
 
 	onMount(async () => {
 		getSession();

@@ -1,9 +1,9 @@
 <script>
-	import { user } from '../../../lib/stores';
+	import { user } from '../../../stores';
 	import Login from './Login.svelte';
 	import Logout from './Logout.svelte';
 	import Icon from '../furniture/Icon.svelte';
-	import { logout } from '../../functions/logout';
+	import { logout } from '../../../functions/logout';
 	
 </script>
 

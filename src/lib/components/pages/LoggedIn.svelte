@@ -1,7 +1,7 @@
 <script>
 	import TodoContainer from '../docs/todo/todoContainer.svelte';
-	import Document from '../docs/myDocuments/documents/FlocsContainer.svelte';
-	import Button from '$lib/layout/furniture/buttons/Button.svelte';
+	import Documents from '../docs/myDocuments/documents.svelte';
+	import Button from '$lib/components/layout/furniture/buttons/Button.svelte';
 	let todo = true;
 
 	const toggle = () => {
@@ -16,5 +16,5 @@
 {#if todo}
 	<TodoContainer />
 {:else}
-	<Document />
+	<Documents />
 {/if}
